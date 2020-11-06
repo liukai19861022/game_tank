@@ -1,7 +1,12 @@
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
     	// write your code here
-        TankFrame tankFrame = new TankFrame();
+        TankFrame tf = new TankFrame();
+
+        while (true){
+            Thread.sleep(50);
+            tf.repaint();
+        }
     }
 }
