@@ -56,6 +56,7 @@ public class TankFrame extends Frame {
         public void keyReleased(KeyEvent e) {
             System.out.println("key Released");
             int code = e.getKeyCode();
+            /*
             switch (code){
                 case KeyEvent.VK_UP:
                     bU = false;
@@ -72,14 +73,28 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
+             */
 
+            if (code == KeyEvent.VK_UP) {
+                bU = false;
+            }
+            if (code == KeyEvent.VK_DOWN) {
+                bD = false;
+            }
+            if (code == KeyEvent.VK_LEFT) {
+                bL = false;
+            }
+            if (code == KeyEvent.VK_RIGHT) {
+                bR = false;
+            }
             setMainTankDir();
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-            System.out.println("key Pressed");
             int code = e.getKeyCode();
+
+            /*
             switch (code){
                 case KeyEvent.VK_UP:
                     bU = true;
@@ -96,6 +111,24 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
+             */
+            if (code == KeyEvent.VK_UP) {
+                bU = true;
+                bD = false;
+            }
+            if (code == KeyEvent.VK_DOWN) {
+                bD = true;
+                bU = false;
+            }
+            if (code == KeyEvent.VK_LEFT) {
+                bL = true;
+                bR = false;
+            }
+            if (code == KeyEvent.VK_RIGHT) {
+                bR = true;
+                bL = false;
+            }
+
             setMainTankDir();
         }
 
@@ -108,6 +141,10 @@ public class TankFrame extends Frame {
                 if (bR) mytank.setDir(Dir.RIGHT);
                 if (bU) mytank.setDir(Dir.UP);
                 if (bD) mytank.setDir(Dir.DOWN);
+                if (bL && bU) mytank.setDir(Dir.LEFTUP);
+                if (bR && bU) mytank.setDir(Dir.RIGHTUP);
+                if (bD && bL) mytank.setDir(Dir.LEFTDOWN);
+                if (bD && bR) mytank.setDir(Dir.RIGHTDOWN);
                 mytank.setMoving(true);
             }
         }
