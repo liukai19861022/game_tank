@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 public class TankFrame extends Frame {
 
     Tank mytank = new Tank(200,200, Dir.DOWN);
+    Bullet bullet = new Bullet(300,300,Dir.DOWN);
 
     //初始化操作
     public TankFrame() throws HeadlessException {
@@ -43,6 +44,7 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
 
         mytank.paint(g);
+        bullet.paint(g);
     }
 
     public class MyKeyListener extends KeyAdapter {
@@ -111,6 +113,8 @@ public class TankFrame extends Frame {
                 mytank.setMoving(true);
             }
         }
+
+
 
     }
 }
