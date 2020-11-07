@@ -6,9 +6,7 @@ import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
 
-    int x = 200,y = 200;
-    Dir dir = Dir.DOWN;
-    private static final int SPEED = 10;
+    Tank mytank = new Tank(200,200, Dir.DOWN);
 
     //初始化操作
     public TankFrame() throws HeadlessException {
@@ -43,18 +41,8 @@ public class TankFrame extends Frame {
      */
     @Override
     public void paint(Graphics g) {
-        g.fillRect(x, y, 30, 30);
 
-        switch (dir){
-            case LEFT: x -= SPEED;
-            break;
-            case RIGHT: x += SPEED;
-            break;
-            case UP: y -= SPEED;
-            break;
-            case DOWN: y += SPEED;
-            break;
-        }
+        mytank.paint(g);
     }
 
     public class MyKeyListener extends KeyAdapter {
@@ -112,10 +100,11 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir(){
-            if (bL) dir = Dir.LEFT;
-            if (bR) dir = Dir.RIGHT;
-            if (bU) dir = Dir.UP;
-            if (bD) dir = Dir.DOWN;
+
+            if (bL) mytank.setDir(Dir.LEFT);
+            if (bR) mytank.setDir(Dir.RIGHT);
+            if (bU) mytank.setDir(Dir.UP);
+            if (bD) mytank.setDir(Dir.DOWN);
         }
 
     }
