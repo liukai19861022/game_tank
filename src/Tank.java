@@ -92,7 +92,7 @@ public class Tank {
      */
     public void fire(){
 
-        this.tf.bullets.add(new Bullet(this.x+(Tank.WID/2-5), this.y+Tank.HEI/2-5,this.dir ));
+        this.tf.bullets.add(new Bullet(this.x+(Tank.WID/2-5), this.y+Tank.HEI/2-5,this.dir, this.tf ));
     }
 
 }

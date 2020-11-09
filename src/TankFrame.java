@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TankFrame extends Frame {
-    private static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
+    public static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
     Tank mytank = new Tank(200,200, Dir.DOWN, this);
     List<Bullet> bullets = new ArrayList<Bullet>();
 
@@ -54,10 +54,16 @@ public class TankFrame extends Frame {
 
         mytank.paint(g);
 
+        //使用计数循环解决 java.util.ConcurrentModificationException 此问题
+        for (int i=0; i<bullets.size(); i++){
+            bullets.get(i).paint(g);
+        }
+        //此方案会出现 java.util.ConcurrentModificationException
+        /*
         for (Bullet b:bullets){
             b.paint(g);
         }
-
+        */
     }
 
     Image offScreenImage = null;
@@ -84,7 +90,6 @@ public class TankFrame extends Frame {
 
         @Override
         public void keyReleased(KeyEvent e) {
-            System.out.println("key Released");
             int code = e.getKeyCode();
             switch (code){
                 case KeyEvent.VK_UP:
@@ -109,7 +114,6 @@ public class TankFrame extends Frame {
         @Override
         public void keyPressed(KeyEvent e) {
             int code = e.getKeyCode();
-            System.out.println(code);
 
             switch (code){
                 case KeyEvent.VK_UP:
