@@ -1,21 +1,46 @@
 import java.awt.*;
+import java.util.List;
+
 
 public class Tank {
 
     private int x,y;
+    public static int WID=50,HEI=50;
     private Dir dir;
     private static final int SPEED = 10;
     private boolean moving = false;
+    private TankFrame tf = null;
 
-    public Tank(int x, int y, Dir dir) {
+    public Tank(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tf = tf;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public void paint(Graphics g){
 
-        g.fillRect(x, y, 30, 30);
+        Color c = g.getColor();
+        g.setColor(Color.yellow);
+        g.fillRect(x, y, WID, HEI);
+        g.setColor(c);
+
         move();
     }
 
@@ -48,4 +73,26 @@ public class Tank {
     public void setDir(Dir dir) {
         this.dir = dir;
     }
+
+    /**
+     * 废弃
+     * @param bulletList
+     * @return
+     */
+    /*
+    public List<Bullet> fire(List<Bullet> bulletList){
+
+        bulletList.add(new Bullet(this.x+(Tank.WID/2-5), this.y+Tank.HEI/2-5,this.dir ));
+        return bulletList;
+    }
+     */
+
+    /**
+     * tank类直接使用tankFrame的对象引用、直接对tankFrame中bullet进行操作赋值
+     */
+    public void fire(){
+
+        this.tf.bullets.add(new Bullet(this.x+(Tank.WID/2-5), this.y+Tank.HEI/2-5,this.dir ));
+    }
+
 }

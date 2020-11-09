@@ -3,17 +3,20 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankFrame extends Frame {
+    private static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
+    Tank mytank = new Tank(200,200, Dir.DOWN, this);
+    List<Bullet> bullets = new ArrayList<Bullet>();
 
-    Tank mytank = new Tank(200,200, Dir.DOWN);
-    Bullet bullet = new Bullet(300,300,Dir.DOWN);
 
     //初始化操作
     public TankFrame() throws HeadlessException {
 
         //设置窗体大小
-        setSize(800, 600);
+        setSize(GAME_WIDTH, GAME_HEIGHT);
         //窗体不可拖动
         setResizable(false);
         //添加标题
@@ -43,8 +46,33 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
 
+        Color c = g.getColor();
+        g.setColor(Color.white);
+        g.drawString("子弹数量 ： "+ bullets.size(),10,60);
+        g.setColor(c);
+
+
         mytank.paint(g);
-        bullet.paint(g);
+
+        for (Bullet b:bullets){
+            b.paint(g);
+        }
+
+    }
+
+    Image offScreenImage = null;
+    @Override
+    public void update(Graphics g) {
+        if (offScreenImage == null){
+            offScreenImage = this.createImage(GAME_WIDTH,GAME_HEIGHT);
+        }
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor();
+        gOffScreen.setColor(Color.black);
+        gOffScreen.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+        gOffScreen.setColor(c);
+        paint(gOffScreen);
+        g.drawImage(offScreenImage,0,0,null);
     }
 
     public class MyKeyListener extends KeyAdapter {
@@ -80,8 +108,9 @@ public class TankFrame extends Frame {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            System.out.println("key Pressed");
             int code = e.getKeyCode();
+            System.out.println(code);
+
             switch (code){
                 case KeyEvent.VK_UP:
                     bU = true;
@@ -95,6 +124,8 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_RIGHT:
                     bR = true;
                     break;
+                case 157 : //mac ⌘、发射子弹
+                    mytank.fire();
                 default:
                     break;
             }

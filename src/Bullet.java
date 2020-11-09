@@ -4,7 +4,7 @@ public class Bullet {
 
     private int x,y;
     private static int WID=10,HEI=10;
-    private static final int SPEED = 10;
+    private static final int SPEED = 8;
     private Dir dir;
 
     public Bullet(int x, int y, Dir dir) {
@@ -28,8 +28,8 @@ public class Bullet {
         switch (dir){
             case UP: y-=SPEED;break;
             case DOWN: y+=SPEED;break;
-            case LEFT: x+=SPEED;break;
-            case RIGHT: x-=SPEED;break;
+            case LEFT: x-=SPEED;break;
+            case RIGHT: x+=SPEED;break;
             default: break;
         }
 
