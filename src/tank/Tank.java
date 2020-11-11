@@ -6,9 +6,10 @@ import java.awt.*;
 public class Tank {
 
     private int x,y;
-    public static int WID=50,HEI=50;
+    public static int WID = ResourceManger.tankD.getWidth();
+    public static int HEI = ResourceManger.tankD.getHeight();
     private Dir dir;
-    private static final int SPEED = 10;
+    private static final int SPEED = 8;
     private boolean moving = false;
     private TankFrame tf = null;
 
@@ -94,7 +95,6 @@ public class Tank {
      * tank类直接使用tankFrame的对象引用、直接对tankFrame中bullet进行操作赋值
      */
     public void fire(){
-//        int bw=0,bh=0,tw=0,th=0;
         int bw=0,bh=0;
         switch (dir){
             case UP:
@@ -117,7 +117,9 @@ public class Tank {
                 break;
         }
 
-        this.tf.bullets.add(new Bullet(this.x+Tank.WID/2-bw/2, this.y+Tank.HEI/2-bh/2,this.dir, this.tf ));
+        int bX = this.x + Tank.WID/2 - bw/2;
+        int bY = this.y + Tank.HEI/2 - bh/2;
+        this.tf.bullets.add(new Bullet(bX, bY, this.dir, this.tf));
     }
 
 }

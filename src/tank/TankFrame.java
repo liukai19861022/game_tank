@@ -12,16 +12,10 @@ public class TankFrame extends Frame {
     public static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
     Tank mytank = new Tank(200,200, Dir.DOWN, this);
     List<Bullet> bullets = new ArrayList<Bullet>();
-    List<Tank> foes = new ArrayList<Tank>();
+    List<Tank> tanks = new ArrayList<Tank>();
 
     //初始化操作
     public TankFrame() throws HeadlessException {
-
-        //添加敌军坦克
-        foes.add(new Tank(30, 100, Dir.DOWN, this));
-        foes.add(new Tank(130, 100, Dir.DOWN, this));
-        foes.add(new Tank(230, 100, Dir.DOWN, this));
-        foes.add(new Tank(330, 100, Dir.DOWN, this));
 
         //设置窗体大小
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -73,8 +67,8 @@ public class TankFrame extends Frame {
         }
         */
 
-        for (int i=0; i<foes.size(); i++){
-            foes.get(i).paint(g);
+        for (int i=0; i<tanks.size(); i++){
+            tanks.get(i).paint(g);
         }
 
     }

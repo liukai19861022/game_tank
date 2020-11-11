@@ -9,8 +9,8 @@ import java.util.List;
 public class Bullet {
 
     private int x,y;
-    private static int WID=10,HEI=10;
-    private static final int SPEED = 8;
+    public static int WID=10,HEI=10;
+    private static final int SPEED = 10;
     private Dir dir;
     private boolean live = true;
     private TankFrame tf = null;
@@ -41,7 +41,7 @@ public class Bullet {
 
     public void attackFinish(){
 
-        List<Tank> foes = this.tf.foes;
+        List<Tank> foes = this.tf.tanks;
         for (int i=0; i<foes.size(); i++){
             Tank tank = foes.get(i);
             int minx = tank.getX();
@@ -50,7 +50,7 @@ public class Bullet {
             int maxy = miny + Tank.HEI;
 
             if ((x>minx && x<maxx) && (y>miny && y<maxy)){
-                this.tf.foes.remove(tank);
+                this.tf.tanks.remove(tank);
                 this.tf.bullets.remove(this);
             }
         }
