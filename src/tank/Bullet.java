@@ -1,3 +1,8 @@
+package tank;
+
+import tank.Dir;
+import tank.TankFrame;
+
 import java.awt.*;
 import java.util.List;
 

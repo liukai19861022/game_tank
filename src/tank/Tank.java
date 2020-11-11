@@ -1,5 +1,6 @@
+package tank;
+
 import java.awt.*;
-import java.util.List;
 
 
 public class Tank {
@@ -80,9 +81,9 @@ public class Tank {
      * @return
      */
     /*
-    public List<Bullet> fire(List<Bullet> bulletList){
+    public List<tank.Bullet> fire(List<tank.Bullet> bulletList){
 
-        bulletList.add(new Bullet(this.x+(Tank.WID/2-5), this.y+Tank.HEI/2-5,this.dir ));
+        bulletList.add(new tank.Bullet(this.x+(tank.Tank.WID/2-5), this.y+tank.Tank.HEI/2-5,this.dir ));
         return bulletList;
     }
      */
@@ -95,4 +96,6 @@ public class Tank {
         this.tf.bullets.add(new Bullet(this.x+(Tank.WID/2-5), this.y+Tank.HEI/2-5,this.dir, this.tf ));
     }
 
+    public static class ResourceManger {
+    }
 }

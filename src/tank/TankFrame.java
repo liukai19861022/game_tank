@@ -1,3 +1,5 @@
+package tank;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -26,7 +28,7 @@ public class TankFrame extends Frame {
         //窗体不可拖动
         setResizable(false);
         //添加标题
-        setTitle("Tank War");
+        setTitle("tank.Tank War");
 
 
         //添加按钮关闭
@@ -66,7 +68,7 @@ public class TankFrame extends Frame {
         }
         //此方案会出现 java.util.ConcurrentModificationException
         /*
-        for (Bullet b:bullets){
+        for (tank.Bullet b:bullets){
             b.paint(g);
         }
         */
