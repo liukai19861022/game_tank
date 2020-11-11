@@ -37,10 +37,12 @@ public class Tank {
 
     public void paint(Graphics g){
 
-        Color c = g.getColor();
-        g.setColor(Color.yellow);
-        g.fillRect(x, y, WID, HEI);
-        g.setColor(c);
+        switch (dir){
+            case RIGHT: g.drawImage(ResourceManger.tankR,x,y,null);break;
+            case LEFT: g.drawImage(ResourceManger.tankL,x,y,null);break;
+            case DOWN:g.drawImage(ResourceManger.tankD,x,y,null);break;
+            case UP:g.drawImage(ResourceManger.tankU,x,y,null);break;
+        }
 
         move();
     }
@@ -92,10 +94,30 @@ public class Tank {
      * tank类直接使用tankFrame的对象引用、直接对tankFrame中bullet进行操作赋值
      */
     public void fire(){
+//        int bw=0,bh=0,tw=0,th=0;
+        int bw=0,bh=0;
+        switch (dir){
+            case UP:
+                bw = 10;
+                bh = 12;
+                break;
+            case DOWN:
+                bw = 14;
+                bh = 12;
+                break;
+            case LEFT:
+                bw = 12;
+                bh = 6;
+                break;
+            case RIGHT:
+                bw = 12;
+                bh = 4;
+                break;
+            default:
+                break;
+        }
 
-        this.tf.bullets.add(new Bullet(this.x+(Tank.WID/2-5), this.y+Tank.HEI/2-5,this.dir, this.tf ));
+        this.tf.bullets.add(new Bullet(this.x+Tank.WID/2-bw/2, this.y+Tank.HEI/2-bh/2,this.dir, this.tf ));
     }
 
-    public static class ResourceManger {
-    }
 }

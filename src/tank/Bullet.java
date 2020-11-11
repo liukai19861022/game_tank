@@ -29,10 +29,12 @@ public class Bullet {
         //验证子弹是否击毁坦克
         attackFinish();
 
-        Color c = g.getColor();
-        g.setColor(Color.red);
-        g.fillOval(x,y,WID,HEI);
-        g.setColor(c);
+        switch (dir){
+            case UP:g.drawImage(ResourceManger.bulletU,x,y,null);break;
+            case DOWN:g.drawImage(ResourceManger.bulletD,x,y,null);break;
+            case LEFT:g.drawImage(ResourceManger.bulletL,x,y,null);break;
+            case RIGHT:g.drawImage(ResourceManger.bulletR,x,y,null);break;
+        }
 
         move();
     }
