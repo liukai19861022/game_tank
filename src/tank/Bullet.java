@@ -9,10 +9,11 @@ import java.util.List;
 public class Bullet {
 
     private int x,y;
-    public static int WID=10,HEI=10;
+    public static int WID=ResourceManger.bulletD.getWidth();
+    public static int HEI=ResourceManger.bulletD.getHeight();
     private static final int SPEED = 10;
     private Dir dir;
-    private boolean live = true;
+    private boolean living = true;
     private TankFrame tf = null;
 
     public Bullet(int x, int y, Dir dir, TankFrame tf) {
@@ -22,12 +23,25 @@ public class Bullet {
         this.tf = tf;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public void paint(Graphics g){
 
-        if (live == false) this.tf.bullets.remove(this);
-
-        //验证子弹是否击毁坦克
-        attackFinish();
+        if (living == false) this.tf.bullets.remove(this);
 
         switch (dir){
             case UP:g.drawImage(ResourceManger.bulletU,x,y,null);break;
@@ -39,22 +53,42 @@ public class Bullet {
         move();
     }
 
-    public void attackFinish(){
+    /**
+     * 坦克碰撞检测
+     * @param tank
+     * @return
+     */
+    public boolean collideWith(Tank tank){
 
-        List<Tank> foes = this.tf.tanks;
-        for (int i=0; i<foes.size(); i++){
-            Tank tank = foes.get(i);
-            int minx = tank.getX();
-            int miny = tank.getY();
-            int maxx = minx + Tank.WID;
-            int maxy = miny + Tank.HEI;
+        /*
+        //low代码
+        int minx = tank.getX();
+        int miny = tank.getY();
+        int maxx = minx + Tank.WID;
+        int maxy = miny + Tank.HEI;
 
-            if ((x>minx && x<maxx) && (y>miny && y<maxy)){
-                this.tf.tanks.remove(tank);
-                this.tf.bullets.remove(this);
-            }
+        if ((x>minx && x<maxx) && (y>miny && y<maxy)){
+            return true;
+        }else {
+            return false;
+        }
+         */
+
+        //使用Rectangle工具类、进行碰撞检测
+        //子弹的矩形
+        Rectangle rectBullet = new Rectangle(x, y, WID, HEI);
+        //坦克的矩形
+        Rectangle rectTank = new Rectangle(tank.getX(), tank.getY(), Tank.WID, Tank.HEI);
+        //如果两个矩形有交集
+        if (rectBullet.intersects(rectTank)){
+            tank.die();
+            die();
+            return true;
+        }else {
+            return false;
         }
     }
+
 
     public void move(){
 
@@ -65,6 +99,10 @@ public class Bullet {
             case RIGHT: x+=SPEED;break;
             default: break;
         }
-        if (x<0 || y <0 || x>TankFrame.GAME_WIDTH || y>TankFrame.GAME_HEIGHT) live = false;
+        if (x<0 || y <0 || x>TankFrame.GAME_WIDTH || y>TankFrame.GAME_HEIGHT) living = false;
+    }
+
+    public void die(){
+        this.living = false;
     }
 }

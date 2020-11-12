@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class TankFrame extends Frame {
@@ -71,6 +72,20 @@ public class TankFrame extends Frame {
             tanks.get(i).paint(g);
         }
 
+        //子弹与敌方tank碰撞检测
+        for (Iterator<Bullet> bulIt = bullets.iterator(); bulIt.hasNext();){
+
+            Bullet bullet = bulIt.next();
+            for (Iterator<Tank> tankIt = tanks.iterator(); tankIt.hasNext(); ){
+
+                Tank tank = tankIt.next();
+                boolean collideStatus = bullet.collideWith(tank);
+                if (collideStatus){
+                    tankIt.remove();
+                    bulIt.remove();
+                }
+            }
+        }
     }
 
     Image offScreenImage = null;

@@ -11,7 +11,6 @@ public class Main {
         //添加敌军坦克
         for (int i=0; i<5; i++){
             int x = 50 + i*80;
-            System.out.println(x);
             tf.tanks.add(new Tank(x, 100, Dir.DOWN, tf));
         }
 

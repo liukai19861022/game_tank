@@ -12,6 +12,7 @@ public class Tank {
     private static final int SPEED = 8;
     private boolean moving = false;
     private TankFrame tf = null;
+    private boolean living = true;
 
     public Tank(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
@@ -37,6 +38,8 @@ public class Tank {
     }
 
     public void paint(Graphics g){
+
+        if (!living) tf.tanks.remove(this);
 
         switch (dir){
             case RIGHT: g.drawImage(ResourceManger.tankR,x,y,null);break;
@@ -122,4 +125,7 @@ public class Tank {
         this.tf.bullets.add(new Bullet(bX, bY, this.dir, this.tf));
     }
 
+    public void die(){
+        this.living = false;
+    }
 }
