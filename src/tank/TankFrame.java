@@ -16,9 +16,6 @@ public class TankFrame extends Frame {
     List<Tank> tanks = new ArrayList<Tank>();
     List<Explode> explodes = new ArrayList<Explode>();
 
-
-    Explode explode = new Explode(200, 200, this);
-
     //初始化操作
     public TankFrame() throws HeadlessException {
 
@@ -28,7 +25,6 @@ public class TankFrame extends Frame {
         setResizable(false);
         //添加标题
         setTitle("tank.Tank War");
-
 
         //添加按钮关闭
         addWindowListener(new WindowAdapter() {
@@ -67,7 +63,6 @@ public class TankFrame extends Frame {
             bullets.get(i).paint(g);
         }
 
-
         for (int i=0; i<tanks.size(); i++){
             tanks.get(i).paint(g);
         }
@@ -96,6 +91,7 @@ public class TankFrame extends Frame {
     Image offScreenImage = null;
     @Override
     public void update(Graphics g) {
+
         if (offScreenImage == null){
             offScreenImage = this.createImage(GAME_WIDTH,GAME_HEIGHT);
         }
@@ -175,8 +171,5 @@ public class TankFrame extends Frame {
                 mytank.setMoving(true);
             }
         }
-
-
-
     }
 }
