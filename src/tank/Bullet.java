@@ -79,6 +79,7 @@ public class Bullet {
          */
 
         //使用Rectangle工具类、进行碰撞检测
+        //待优化的点：tank类、bullet类各自只使用一个Rectangle类记录子弹、坦克的当前位置，防止Rectangle实例过多，造成的内存泄露
         //子弹的矩形
         Rectangle rectBullet = new Rectangle(x, y, WID, HEI);
         //坦克的矩形
@@ -87,6 +88,7 @@ public class Bullet {
         if (rectBullet.intersects(rectTank)){
             tank.die();
             die();
+            this.tf.explodes.add(new Explode(tank.getX(), tank.getY(), tf));
         }
     }
 

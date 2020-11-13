@@ -3,7 +3,6 @@ package tank;
 import java.awt.*;
 import java.util.Random;
 
-
 public class Tank {
 
     private int x,y;
@@ -68,10 +67,16 @@ public class Tank {
                 break;
         }
 
+        if (group == Group.BAD) autoFire();
+
+    }
+
+    public void autoFire(){
         if (random.nextInt(10) > 8){
             this.fire();
         }
     }
+
 
     public boolean isMoving() {
         return moving;

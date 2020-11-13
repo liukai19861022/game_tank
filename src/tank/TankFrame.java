@@ -14,6 +14,10 @@ public class TankFrame extends Frame {
     Tank mytank = new Tank(200,200, Dir.DOWN, Group.GOOD, this);
     List<Bullet> bullets = new ArrayList<Bullet>();
     List<Tank> tanks = new ArrayList<Tank>();
+    List<Explode> explodes = new ArrayList<Explode>();
+
+
+    Explode explode = new Explode(200, 200, this);
 
     //初始化操作
     public TankFrame() throws HeadlessException {
@@ -62,12 +66,7 @@ public class TankFrame extends Frame {
         for (int i=0; i<bullets.size(); i++){
             bullets.get(i).paint(g);
         }
-        //此方案会出现 java.util.ConcurrentModificationException
-        /*
-        for (tank.Bullet b:bullets){
-            b.paint(g);
-        }
-        */
+
 
         for (int i=0; i<tanks.size(); i++){
             tanks.get(i).paint(g);
@@ -81,12 +80,15 @@ public class TankFrame extends Frame {
 
                 Tank tank = tankIt.next();
                 bullet.collideWith(tank);
+            }
+        }
 
-//                boolean collideStatus = bullet.collideWith(tank);
-//                if (collideStatus){
-//                    tankIt.remove();
-//                    bulIt.remove();
-//                }
+        //爆炸特效
+        for (Iterator<Explode> it = explodes.iterator(); it.hasNext();){
+            Explode e = it.next();
+            e.paint(g);
+            if (!e.isLiving()){
+                it.remove();
             }
         }
     }
