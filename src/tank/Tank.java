@@ -58,6 +58,7 @@ public class Tank {
     }
 
     public void move(){
+        
         if (!moving) return;
         switch (dir){
             case LEFT: x -= SPEED;
@@ -74,7 +75,6 @@ public class Tank {
             autoFire();
             autoRun();
         }
-
     }
 
     public void autoFire(){
