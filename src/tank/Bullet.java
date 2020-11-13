@@ -16,6 +16,7 @@ public class Bullet {
     private boolean living = true;
     private TankFrame tf = null;
     private Group group;
+    private Rectangle rect = new Rectangle();
 
     public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
@@ -23,6 +24,12 @@ public class Bullet {
         this.dir = dir;
         this.group = group;
         this.tf = tf;
+
+        //init rect
+        rect.x = x;
+        rect.y = y;
+        rect.width = WID;
+        rect.height = HEI;
     }
 
     public int getX() {
@@ -62,10 +69,9 @@ public class Bullet {
      */
     public void collideWith(Tank tank){
 
-        if (this.group == tank.group) return ;
+        if (this.group == tank.getGroup()) return ;
 
         /*
-        //low代码
         int minx = tank.getX();
         int miny = tank.getY();
         int maxx = minx + Tank.WID;
@@ -79,13 +85,8 @@ public class Bullet {
          */
 
         //使用Rectangle工具类、进行碰撞检测
-        //待优化的点：tank类、bullet类各自只使用一个Rectangle类记录子弹、坦克的当前位置，防止Rectangle实例过多，造成的内存泄露
-        //子弹的矩形
-        Rectangle rectBullet = new Rectangle(x, y, WID, HEI);
-        //坦克的矩形
-        Rectangle rectTank = new Rectangle(tank.getX(), tank.getY(), Tank.WID, Tank.HEI);
         //如果两个矩形有交集
-        if (rectBullet.intersects(rectTank)){
+        if (rect.intersects(tank.getRect())){
             tank.die();
             die();
             int explodeX = tank.getX() + (Tank.WID/2) - (Explode.WID/2);
@@ -104,6 +105,11 @@ public class Bullet {
             case RIGHT: x+=SPEED;break;
             default: break;
         }
+
+        //update rect
+        rect.x = x;
+        rect.y = y;
+
         if (x<0 || y <0 || x>TankFrame.GAME_WIDTH || y>TankFrame.GAME_HEIGHT) living = false;
     }
 

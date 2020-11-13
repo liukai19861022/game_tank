@@ -13,8 +13,9 @@ public class Tank {
     private boolean moving = false;
     private TankFrame tf = null;
     private boolean living = true;
-    Random random = new Random();
-    Group group;
+    private Random random = new Random();
+    private Group group;
+    private Rectangle rect = new Rectangle();
 
     public Tank(int x, int y, Dir dir, Group group, boolean moving, TankFrame tf) {
         this.x = x;
@@ -24,7 +25,28 @@ public class Tank {
         this.moving = moving;
         this.tf = tf;
 
+        //init rect
+        rect.x = x;
+        rect.y = y;
+        rect.width = WID;
+        rect.height = HEI;
 
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
     }
 
     public int getX() {
@@ -72,8 +94,13 @@ public class Tank {
                 break;
         }
 
+        //update rect
+        rect.x = x;
+        rect.y = y;
+
         if (group == Group.BAD && random.nextInt(100) > 95)
             this.fire();
+
         if (group == Group.BAD && random.nextInt(100) > 96)
             dir = Dir.values()[random.nextInt(4)];
 
@@ -82,10 +109,11 @@ public class Tank {
 
     public void boundsCheck(){
 
-        int upY = 30; //含菜单条
-        int bottomY = TankFrame.GAME_HEIGHT - Tank.HEI;
-        int leftX = 0;
-        int rightX = TankFrame.GAME_WIDTH - Tank.WID;
+        int border = 2;
+        int upY = 30 + border; //含菜单条
+        int bottomY = TankFrame.GAME_HEIGHT - Tank.HEI - border;
+        int leftX = 0 +border;
+        int rightX = TankFrame.GAME_WIDTH - Tank.WID - border;
         if (x< leftX) x = leftX;
         if (x > rightX) x = rightX;
         if (y < upY) y = upY;
