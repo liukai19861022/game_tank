@@ -72,41 +72,27 @@ public class Tank {
                 break;
         }
 
-        if (group == Group.BAD){
-            autoFire();
-            autoRun();
-        }
-    }
-
-    public void autoFire(){
-        if (random.nextInt(10) > 8){
+        if (group == Group.BAD && random.nextInt(100) > 95)
             this.fire();
-        }
+        if (group == Group.BAD && random.nextInt(100) > 96)
+            dir = Dir.values()[random.nextInt(4)];
+
+        boundsCheck();
     }
 
-    public boolean isBorder(){
-        int upY = 0;
+    public void boundsCheck(){
+
+        int upY = 30; //含菜单条
         int bottomY = TankFrame.GAME_HEIGHT - Tank.HEI;
         int leftX = 0;
         int rightX = TankFrame.GAME_WIDTH - Tank.WID;
-        if ((x< leftX || x > rightX) || (y < upY || y > bottomY)){
-            return true;
-        }
-        return false;
+        if (x< leftX) x = leftX;
+        if (x > rightX) x = rightX;
+        if (y < upY) y = upY;
+        if (y > bottomY) y = bottomY;
     }
 
-    public void autoRun() {
 
-        if (isBorder()){
-
-            if (dir == Dir.DOWN) dir = Dir.UP;
-            else if (dir == Dir.UP) dir = Dir.DOWN;
-            else if (dir == Dir.LEFT) dir = Dir.RIGHT;
-            else if (dir == Dir.RIGHT) dir = Dir.LEFT;
-        }else if ((random.nextInt(100) > 96)) {
-            dir = Dir.values()[random.nextInt(4)];
-        }
-    }
 
     public boolean isMoving() {
         return moving;
