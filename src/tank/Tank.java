@@ -15,8 +15,6 @@ public class Tank {
     private boolean living = true;
     Random random = new Random();
     Group group;
-    private int minStep = 0,maxStep = 60;
-
 
     public Tank(int x, int y, Dir dir, Group group, boolean moving, TankFrame tf) {
         this.x = x;
@@ -98,32 +96,14 @@ public class Tank {
 
     public void autoRun() {
 
-        minStep++;
         if (isBorder()){
 
             if (dir == Dir.DOWN) dir = Dir.UP;
             else if (dir == Dir.UP) dir = Dir.DOWN;
             else if (dir == Dir.LEFT) dir = Dir.RIGHT;
             else if (dir == Dir.RIGHT) dir = Dir.LEFT;
-            minStep = 0;
-
-        }else if ((random.nextInt(10) > 6 && minStep > maxStep)) {
-
-            int i = random.nextInt(8);
-
-            if ( i >= 0 && i < 2 ) {
-                dir = Dir.DOWN;
-            }
-            if ( i >= 2 && i < 4 ) {
-                dir = Dir.UP;
-            }
-            if ( i >= 4 && i < 6 ) {
-                dir = Dir.LEFT;
-            }
-            if ( i >= 6 && i < 8 ) {
-                dir = Dir.RIGHT;
-            }
-            minStep = 0;
+        }else if ((random.nextInt(100) > 96)) {
+            dir = Dir.values()[random.nextInt(4)];
         }
     }
 
