@@ -10,8 +10,9 @@ public class Main {
 
         //添加敌军坦克
         for (int i=0; i<5; i++){
-            int x = 50 + i*80;
-            tf.tanks.add(new Tank(x, 100, Dir.DOWN, Group.BAD, tf));
+
+           int x = 50 + i*80;
+            tf.tanks.add(new Tank(x, 100, Dir.DOWN, Group.BAD, true, tf));
         }
 
         while (true){

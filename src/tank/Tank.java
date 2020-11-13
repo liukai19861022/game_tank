@@ -9,19 +9,24 @@ public class Tank {
     public static int WID = ResourceManger.tankD.getWidth();
     public static int HEI = ResourceManger.tankD.getHeight();
     private Dir dir;
-    private static final int SPEED = 2;
-    private boolean moving = true;
+    private static final int SPEED = 4;
+    private boolean moving = false;
     private TankFrame tf = null;
     private boolean living = true;
     Random random = new Random();
     Group group;
+    private int minStep = 0,maxStep = 60;
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+
+    public Tank(int x, int y, Dir dir, Group group, boolean moving, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
+        this.moving = moving;
         this.tf = tf;
+
+
     }
 
     public int getX() {
@@ -67,7 +72,10 @@ public class Tank {
                 break;
         }
 
-        if (group == Group.BAD) autoFire();
+        if (group == Group.BAD){
+            autoFire();
+            autoRun();
+        }
 
     }
 
@@ -77,6 +85,47 @@ public class Tank {
         }
     }
 
+    public boolean isBorder(){
+        int upY = 0;
+        int bottomY = TankFrame.GAME_HEIGHT - Tank.HEI;
+        int leftX = 0;
+        int rightX = TankFrame.GAME_WIDTH - Tank.WID;
+        if ((x< leftX || x > rightX) || (y < upY || y > bottomY)){
+            return true;
+        }
+        return false;
+    }
+
+    public void autoRun() {
+
+        minStep++;
+        if (isBorder()){
+
+            if (dir == Dir.DOWN) dir = Dir.UP;
+            else if (dir == Dir.UP) dir = Dir.DOWN;
+            else if (dir == Dir.LEFT) dir = Dir.RIGHT;
+            else if (dir == Dir.RIGHT) dir = Dir.LEFT;
+            minStep = 0;
+
+        }else if ((random.nextInt(10) > 6 && minStep > maxStep)) {
+
+            int i = random.nextInt(8);
+
+            if ( i >= 0 && i < 2 ) {
+                dir = Dir.DOWN;
+            }
+            if ( i >= 2 && i < 4 ) {
+                dir = Dir.UP;
+            }
+            if ( i >= 4 && i < 6 ) {
+                dir = Dir.LEFT;
+            }
+            if ( i >= 6 && i < 8 ) {
+                dir = Dir.RIGHT;
+            }
+            minStep = 0;
+        }
+    }
 
     public boolean isMoving() {
         return moving;

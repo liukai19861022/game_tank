@@ -16,7 +16,8 @@ public class Explode {
         this.y = y;
         this.tf = tf;
 
-        new Audio("audio/explode.wav").play();
+        //播放声音、卡顿
+        //new Audio("audio/explode.wav").play();
     }
 
     public int getX() {
