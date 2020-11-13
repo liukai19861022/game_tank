@@ -15,11 +15,13 @@ public class Bullet {
     private Dir dir;
     private boolean living = true;
     private TankFrame tf = null;
+    private Group group;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tf = tf;
     }
 
@@ -58,7 +60,9 @@ public class Bullet {
      * @param tank
      * @return
      */
-    public boolean collideWith(Tank tank){
+    public void collideWith(Tank tank){
+
+        if (this.group == tank.group) return ;
 
         /*
         //low代码
@@ -83,9 +87,6 @@ public class Bullet {
         if (rectBullet.intersects(rectTank)){
             tank.die();
             die();
-            return true;
-        }else {
-            return false;
         }
     }
 

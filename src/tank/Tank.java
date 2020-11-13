@@ -1,6 +1,7 @@
 package tank;
 
 import java.awt.*;
+import java.util.Random;
 
 
 public class Tank {
@@ -9,15 +10,18 @@ public class Tank {
     public static int WID = ResourceManger.tankD.getWidth();
     public static int HEI = ResourceManger.tankD.getHeight();
     private Dir dir;
-    private static final int SPEED = 8;
-    private boolean moving = false;
+    private static final int SPEED = 2;
+    private boolean moving = true;
     private TankFrame tf = null;
     private boolean living = true;
+    Random random = new Random();
+    Group group;
 
-    public Tank(int x, int y, Dir dir, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tf = tf;
     }
 
@@ -63,6 +67,10 @@ public class Tank {
             case DOWN: y += SPEED;
                 break;
         }
+
+        if (random.nextInt(10) > 8){
+            this.fire();
+        }
     }
 
     public boolean isMoving() {
@@ -80,19 +88,6 @@ public class Tank {
     public void setDir(Dir dir) {
         this.dir = dir;
     }
-
-    /**
-     * 废弃
-     * @param bulletList
-     * @return
-     */
-    /*
-    public List<tank.Bullet> fire(List<tank.Bullet> bulletList){
-
-        bulletList.add(new tank.Bullet(this.x+(tank.Tank.WID/2-5), this.y+tank.Tank.HEI/2-5,this.dir ));
-        return bulletList;
-    }
-     */
 
     /**
      * tank类直接使用tankFrame的对象引用、直接对tankFrame中bullet进行操作赋值
@@ -122,7 +117,7 @@ public class Tank {
 
         int bX = this.x + Tank.WID/2 - bw/2;
         int bY = this.y + Tank.HEI/2 - bh/2;
-        this.tf.bullets.add(new Bullet(bX, bY, this.dir, this.tf));
+        this.tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
     }
 
     public void die(){
