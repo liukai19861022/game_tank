@@ -6,8 +6,8 @@ import java.util.Random;
 public class Tank {
 
     private int x,y;
-    public static int WID = ResourceManger.tankD.getWidth();
-    public static int HEI = ResourceManger.tankD.getHeight();
+    public static int WID = ResourceManger.badTankU.getWidth();
+    public static int HEI = ResourceManger.badTankU.getHeight();
     private Dir dir;
     private static final int SPEED = 4;
     private boolean moving = false;
@@ -43,22 +43,23 @@ public class Tank {
         this.y = y;
     }
 
+
     public void paint(Graphics g){
 
         if (!living) tf.tanks.remove(this);
 
         switch (dir){
-            case RIGHT: g.drawImage(ResourceManger.tankR,x,y,null);break;
-            case LEFT: g.drawImage(ResourceManger.tankL,x,y,null);break;
-            case DOWN:g.drawImage(ResourceManger.tankD,x,y,null);break;
-            case UP:g.drawImage(ResourceManger.tankU,x,y,null);break;
+            case RIGHT: g.drawImage(group == Group.GOOD ? ResourceManger.goodTankR : ResourceManger.badTankR, x, y, null);break;
+            case LEFT: g.drawImage(group == Group.GOOD ? ResourceManger.goodTankL : ResourceManger.badTankL, x, y, null);break;
+            case DOWN:g.drawImage(group == Group.GOOD ? ResourceManger.goodTankD : ResourceManger.badTankD, x, y, null);break;
+            case UP:g.drawImage(group == Group.GOOD ? ResourceManger.goodTankU : ResourceManger.badTankU, x, y, null);break;
         }
 
         move();
     }
 
     public void move(){
-        
+
         if (!moving) return;
         switch (dir){
             case LEFT: x -= SPEED;
