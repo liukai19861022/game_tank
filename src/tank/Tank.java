@@ -128,27 +128,7 @@ public class Tank {
      * tank类直接使用tankFrame的对象引用、直接对tankFrame中bullet进行操作赋值
      */
     public void fire(){
-        int bw=0,bh=0;
-        switch (dir){
-            case UP:
-                bw = 10;
-                bh = 12;
-                break;
-            case DOWN:
-                bw = 14;
-                bh = 12;
-                break;
-            case LEFT:
-                bw = 12;
-                bh = 6;
-                break;
-            case RIGHT:
-                bw = 12;
-                bh = 4;
-                break;
-            default:
-                break;
-        }
+        int bw=Bullet.WID,bh=Bullet.HEI;
 
         int bX = this.x + Tank.WID/2 - bw/2;
         int bY = this.y + Tank.HEI/2 - bh/2;
