@@ -9,7 +9,8 @@ public class Main {
         TankFrame tf = new TankFrame();
 
         //添加敌军坦克
-        for (int i=0; i<5; i++){
+        int initTankCount = Integer.parseInt((String) PropertyMgr.get("initTankCount"));
+        for (int i=0; i<initTankCount; i++){
 
            int x = 50 + i*80;
             tf.tanks.add(new Tank(x, 100, Dir.DOWN, Group.BAD, true, tf));
