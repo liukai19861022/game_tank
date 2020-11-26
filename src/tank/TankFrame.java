@@ -1,5 +1,7 @@
 package tank;
 
+import tank.fireStrategy.TwoDirFireStrategy;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -15,6 +17,14 @@ public class TankFrame extends Frame {
     List<Bullet> bullets = new ArrayList<Bullet>();
     List<Tank> tanks = new ArrayList<Tank>();
     List<Explode> explodes = new ArrayList<Explode>();
+
+    public List<Bullet> getBullets() {
+        return bullets;
+    }
+
+    public void setBullets(List<Bullet> bullets) {
+        this.bullets = bullets;
+    }
 
     //初始化操作
     public TankFrame() throws HeadlessException {
@@ -153,7 +163,7 @@ public class TankFrame extends Frame {
                     bR = true;
                     break;
                 case 157 : //mac ⌘、发射子弹
-                    mytank.fire();
+                    mytank.fire(TwoDirFireStrategy.getInstance());
                 default:
                     break;
             }

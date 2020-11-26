@@ -19,6 +19,7 @@ public class Bullet {
     private Rectangle rect = new Rectangle();
 
     public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+
         this.x = x;
         this.y = y;
         this.dir = dir;

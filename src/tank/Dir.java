@@ -1,5 +1,5 @@
 package tank;
 
 public enum Dir {
-    LEFT, RIGHT, UP, DOWN
+    LEFT, UP, RIGHT, DOWN
 }

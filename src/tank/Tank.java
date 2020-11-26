@@ -1,6 +1,9 @@
 package tank;
 
+import tank.fireStrategy.DefaultFireStrategy;
+
 import java.awt.*;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Tank {
@@ -99,7 +102,7 @@ public class Tank {
         rect.y = y;
 
         if (group == Group.BAD && random.nextInt(100) > 95)
-            this.fire();
+            this.fire(DefaultFireStrategy.getInstance());
 
         if (group == Group.BAD && random.nextInt(100) > 96)
             dir = Dir.values()[random.nextInt(4)];
@@ -138,15 +141,23 @@ public class Tank {
         this.dir = dir;
     }
 
+    public Dir getOffetCurrentRightDir() {
+
+        Dir[] dirs = Dir.values();
+        int key = Arrays.binarySearch(dirs, this.dir);
+
+        int maxKey = dirs.length-1;
+        int nextKey = key < maxKey ? key+1 : 0;
+
+        return dirs[nextKey];
+    }
+
     /**
      * tank类直接使用tankFrame的对象引用、直接对tankFrame中bullet进行操作赋值
      */
-    public void fire(){
-        int bw=Bullet.WID,bh=Bullet.HEI;
+    public void fire(FireStrategy fireStrategy){
 
-        int bX = this.x + Tank.WID/2 - bw/2;
-        int bY = this.y + Tank.HEI/2 - bh/2;
-        this.tf.bullets.add(new Bullet(bX, bY, this.dir, this.group, this.tf));
+        fireStrategy.fire(this.tf, this);
     }
 
     public void die(){
