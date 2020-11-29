@@ -4,13 +4,16 @@ import tank.Dir;
 import tank.TankFrame;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 public class Bullet {
 
     private int x,y;
-    public static int WID=ResourceManger.bulletD.getWidth();
-    public static int HEI=ResourceManger.bulletD.getHeight();
+//    public static int WID=ResourceManger.bulletD.getWidth();
+//    public static int HEI=ResourceManger.bulletD.getHeight();
+    public static int WID;
+    public static int HEI;
     private static final int SPEED = 10;
     private Dir dir;
     private boolean living = true;
@@ -26,11 +29,28 @@ public class Bullet {
         this.group = group;
         this.tf = tf;
 
+        if (this.group == Group.GOOD) {
+            setHEI(ResourceManger.goodBulletD.getHeight());
+            setWID(ResourceManger.goodBulletD.getWidth());
+        }else if (this.group == Group.BAD) {
+            setHEI(ResourceManger.badBulletD.getHeight());
+            setWID(ResourceManger.badBulletD.getWidth());
+        }
+
+
         //init rect
         rect.x = x;
         rect.y = y;
         rect.width = WID;
         rect.height = HEI;
+    }
+
+    private void setWID(int wid) {
+        WID = wid;
+    }
+
+    private void setHEI(int hei) {
+        HEI = hei;
     }
 
     public int getX() {
@@ -53,11 +73,24 @@ public class Bullet {
 
         if (living == false) this.tf.bullets.remove(this);
 
+        BufferedImage img;
         switch (dir){
-            case UP:g.drawImage(ResourceManger.bulletU,x,y,null);break;
-            case DOWN:g.drawImage(ResourceManger.bulletD,x,y,null);break;
-            case LEFT:g.drawImage(ResourceManger.bulletL,x,y,null);break;
-            case RIGHT:g.drawImage(ResourceManger.bulletR,x,y,null);break;
+            case UP:
+                img = this.group == Group.GOOD ? ResourceManger.goodBulletU : ResourceManger.badBulletU;
+                g.drawImage(img, x, y, null);
+                break;
+            case DOWN:
+                img = this.group == Group.GOOD ? ResourceManger.goodBulletD : ResourceManger.badBulletD;
+                g.drawImage(img, x, y, null);
+                break;
+            case LEFT:
+                img = this.group == Group.GOOD ? ResourceManger.goodBulletL : ResourceManger.badBulletL;
+                g.drawImage(img, x, y, null);
+                break;
+            case RIGHT:
+                img = this.group == Group.GOOD ? ResourceManger.goodBulletR : ResourceManger.badBulletR;
+                g.drawImage(img, x, y, null);
+                break;
         }
 
         move();
@@ -92,7 +125,7 @@ public class Bullet {
             die();
             int explodeX = tank.getX() + (Tank.WID/2) - (Explode.WID/2);
             int explodeY = tank.getY() + (Tank.HEI/2) - (Explode.HEI/2);
-            this.tf.explodes.add(new Explode(explodeX, explodeY, tf));
+            this.tf.explodes.add(new Explode(explodeX, explodeY, this.group, tf));
         }
     }
 

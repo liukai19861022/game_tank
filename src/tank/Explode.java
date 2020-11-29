@@ -1,23 +1,41 @@
 package tank;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Explode {
 
     private int x,y;
-    public static int WID=ResourceManger.explodes[0].getWidth();
-    public static int HEI=ResourceManger.explodes[0].getHeight();
+    public static int WID;
+    public static int HEI;
     private TankFrame tf = null;
     private int step = 0;
     private boolean living = true;
+    private Group group;
 
-    public Explode(int x, int y, TankFrame tf) {
+    public Explode(int x, int y, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
+        this.group = group;
         this.tf = tf;
 
+        if (this.group == Group.GOOD) {
+            setHEI(ResourceManger.goodExplodes[0].getHeight());
+            setWID(ResourceManger.goodExplodes[0].getWidth());
+        }else if (this.group == Group.BAD) {
+            setHEI(ResourceManger.badExplodes[0].getHeight());
+            setWID(ResourceManger.badExplodes[0].getWidth());
+        }
         //播放声音、卡顿
         //new Audio("audio/explode.wav").play();
+    }
+
+    public void setHEI(int hei) {
+        HEI = hei;
+    }
+
+    public void setWID(int wid) {
+        WID = wid;
     }
 
     public int getX() {
@@ -46,8 +64,9 @@ public class Explode {
 
     public void paint(Graphics g){
 
-        g.drawImage(ResourceManger.explodes[step++], x, y, null);
-        if (step >= ResourceManger.explodes.length){
+        BufferedImage[] images = this.group == Group.GOOD ? ResourceManger.goodExplodes : ResourceManger.badExplodes;
+        g.drawImage(images[step++], x, y, null);
+        if (step >= images.length){
             step =0;
             living = false;
         }
