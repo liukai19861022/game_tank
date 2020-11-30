@@ -15,19 +15,18 @@ public class GoodTankSkinFactory extends SkinAbstractFactory {
         return INSTANCE;
     }
 
-    public InputStream createTank() {
+    public TankSkin createTank() {
 
-        return TANKINSTANCE.getSkin();
+        return TANKINSTANCE;
     }
 
-    public InputStream createBullet() {
+    public BulletSkin createBullet() {
 
-        return BULLETINSTANCE.getSkin();
+        return BULLETINSTANCE;
     }
 
-    public InputStream[] createExplodes() {
+    public ExplodeSkin createExplodes() {
 
-        return EXPINSTANCE.getSkins();
+        return EXPINSTANCE;
     }
-
 }

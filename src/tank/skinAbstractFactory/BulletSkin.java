@@ -4,5 +4,5 @@ import java.io.InputStream;
 
 public abstract class BulletSkin {
 
-    abstract InputStream getSkin();
+    public abstract InputStream getSkin();
 }

@@ -4,5 +4,5 @@ import java.io.InputStream;
 
 public abstract class ExplodeSkin {
 
-    abstract InputStream[] getSkins();
+    public abstract InputStream[] getSkins();
 }

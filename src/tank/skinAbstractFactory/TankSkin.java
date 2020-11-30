@@ -4,5 +4,5 @@ import java.io.InputStream;
 
 public abstract class TankSkin {
 
-    abstract InputStream getSkin();
+    public abstract InputStream getSkin();
 }

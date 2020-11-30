@@ -1,5 +1,7 @@
 package tank.skinAbstractFactory;
 
+import tank.Bullet;
+
 import java.io.InputStream;
 
 public class BadTankSkinFactory extends SkinAbstractFactory {
@@ -15,19 +17,19 @@ public class BadTankSkinFactory extends SkinAbstractFactory {
         return INSTANCE;
     }
 
-    public InputStream createTank() {
+    public TankSkin createTank() {
 
-        return TANKINSTANCE.getSkin();
+        return TANKINSTANCE;
     }
 
-    public InputStream createBullet() {
+    public BulletSkin createBullet() {
 
-        return BULLETINSTANCE.getSkin();
+        return BULLETINSTANCE;
     }
 
-    public InputStream[] createExplodes() {
+    public ExplodeSkin createExplodes() {
 
-        return EXPINSTANCE.getSkins();
+        return EXPINSTANCE;
     }
 
 }
