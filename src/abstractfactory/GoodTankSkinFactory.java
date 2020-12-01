@@ -1,6 +1,4 @@
-package tank.skinAbstractFactory;
-
-import java.io.InputStream;
+package abstractfactory;
 
 public class GoodTankSkinFactory extends SkinAbstractFactory {
 

@@ -1,8 +1,8 @@
-package tank.skinAbstractFactory;
+package abstractfactory;
 
 import java.io.InputStream;
 
-public class Bullet2Skin extends BulletSkin{
+public class Bullet2Skin extends BulletSkin {
 
     public InputStream getSkin() {
 

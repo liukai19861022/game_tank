@@ -1,11 +1,5 @@
 package tank;
 
-import tank.TankFrame;
-import tank.skinAbstractFactory.GoodTankSkinFactory;
-
-import java.util.Arrays;
-import java.util.Properties;
-
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {

@@ -1,8 +1,4 @@
-package tank.skinAbstractFactory;
-
-import tank.Bullet;
-
-import java.io.InputStream;
+package abstractfactory;
 
 public class BadTankSkinFactory extends SkinAbstractFactory {
 
@@ -31,5 +27,4 @@ public class BadTankSkinFactory extends SkinAbstractFactory {
 
         return EXPINSTANCE;
     }
-
 }

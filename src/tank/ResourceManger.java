@@ -1,7 +1,7 @@
 package tank;
 
-import demo.Image;
-import tank.skinAbstractFactory.*;
+import abstractfactory.BadTankSkinFactory;
+import abstractfactory.GoodTankSkinFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

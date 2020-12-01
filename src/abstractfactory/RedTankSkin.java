@@ -1,4 +1,4 @@
-package tank.skinAbstractFactory;
+package abstractfactory;
 
 import java.io.InputStream;
 
