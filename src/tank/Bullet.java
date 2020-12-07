@@ -17,17 +17,17 @@ public class Bullet {
     private static final int SPEED = 10;
     private Dir dir;
     private boolean living = true;
-    private TankFrame tf = null;
+    private GameModel gm;
     private Group group;
     private Rectangle rect = new Rectangle();
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
 
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
 
         if (this.group == Group.GOOD) {
             setHEI(ResourceManger.goodBulletD.getHeight());
@@ -71,7 +71,7 @@ public class Bullet {
 
     public void paint(Graphics g){
 
-        if (living == false) this.tf.bullets.remove(this);
+        if (living == false) this.gm.bullets.remove(this);
 
         BufferedImage img;
         switch (dir){
@@ -125,7 +125,7 @@ public class Bullet {
             die();
             int explodeX = tank.getX() + (Tank.WID/2) - (Explode.WID/2);
             int explodeY = tank.getY() + (Tank.HEI/2) - (Explode.HEI/2);
-            this.tf.explodes.add(new Explode(explodeX, explodeY, this.group, tf));
+            this.gm.explodes.add(new Explode(explodeX, explodeY, this.group, gm));
         }
     }
 

@@ -19,14 +19,16 @@ public class Tank {
     private Random random = new Random();
     private Group group;
     private Rectangle rect = new Rectangle();
+    private GameModel gm;
 
-    public Tank(int x, int y, Dir dir, Group group, boolean moving, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, boolean moving, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
         this.moving = moving;
-        this.tf = tf;
+//        this.tf = tf;
+        this.gm = gm;
 
         //init rect
         rect.x = x;
@@ -71,7 +73,7 @@ public class Tank {
 
     public void paint(Graphics g){
 
-        if (!living) tf.tanks.remove(this);
+        if (!living) gm.tanks.remove(this);
 
         switch (dir){
             case RIGHT: g.drawImage(group == Group.GOOD ? ResourceManger.goodTankR : ResourceManger.badTankR, x, y, null);break;
@@ -157,7 +159,7 @@ public class Tank {
      */
     public void fire(FireStrategy fireStrategy){
 
-        fireStrategy.fire(this.tf, this);
+        fireStrategy.fire(this.gm, this);
     }
 
     public void die(){

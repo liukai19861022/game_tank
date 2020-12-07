@@ -8,16 +8,16 @@ public class Explode {
     private int x,y;
     public static int WID;
     public static int HEI;
-    private TankFrame tf = null;
+    private GameModel gm;
     private int step = 0;
     private boolean living = true;
     private Group group;
 
-    public Explode(int x, int y, Group group, TankFrame tf) {
+    public Explode(int x, int y, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
 
         if (this.group == Group.GOOD) {
             setHEI(ResourceManger.goodExplodes[0].getHeight());
