@@ -1,5 +1,6 @@
-package tank;
+package fireStrategy;
 
+import tank.GameModel;
 import tank.Tank;
 import tank.TankFrame;
 

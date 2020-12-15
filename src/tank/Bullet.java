@@ -7,19 +7,17 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-public class Bullet {
+public class Bullet extends GameObject{
 
     private int x,y;
-//    public static int WID=ResourceManger.bulletD.getWidth();
-//    public static int HEI=ResourceManger.bulletD.getHeight();
     public static int WID;
     public static int HEI;
     private static final int SPEED = 10;
     private Dir dir;
     private boolean living = true;
-    private GameModel gm;
-    private Group group;
-    private Rectangle rect = new Rectangle();
+    public GameModel gm;
+    public Group group;
+    public Rectangle rect = new Rectangle();
 
     public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
 
@@ -71,7 +69,7 @@ public class Bullet {
 
     public void paint(Graphics g){
 
-        if (living == false) this.gm.bullets.remove(this);
+        if (living == false) this.gm.remove(this);
 
         BufferedImage img;
         switch (dir){
@@ -105,27 +103,48 @@ public class Bullet {
 
         if (this.group == tank.getGroup()) return ;
 
-        /*
-        int minx = tank.getX();
-        int miny = tank.getY();
-        int maxx = minx + Tank.WID;
-        int maxy = miny + Tank.HEI;
-
-        if ((x>minx && x<maxx) && (y>miny && y<maxy)){
-            return true;
-        }else {
-            return false;
-        }
+        /**
+         * 第一种情况：
+         *     tkMinx|---------------------|tkMaxX
+         *     |-------|bulMaxX
+         *     bulMaxX >= tkMinx && bulMaxX <= tkMaxX //碰撞检测x成立
+         *
+         * 第二种情况：
+         *     tkMinX|---------------------|tkMaxX
+         *       bulMinX|-------|bulMaxX
+         * 第三种情况：
+         *     tkMinX|---------------------|tkMaxX
+         *                       bulMinX|-------|bulMaxX
+         * 第二种和第三种均为 bulMinX >= tkMinX && bulMax <= tkMaxX 、可直接忽视 bulMaxX所处位置。
+         *      bulMinX >= tkMinX && bulMax <= tkMaxX //碰撞检测x成立
          */
+        /*
+        int bulMinX = this.x;
+        int bulMaxX = bulMinX + Bullet.WID;
+        int tkMinX = tank.getX();
+        int tkMaxX = tkMinX + Tank.WID;
+        int bulMinY = this.y;
+        int bulMaxY = bulMinY + Bullet.HEI;
+        int tkMinY = tank.getY();
+        int tkMaxY = tkMinY + Tank.HEI;
 
-        //使用Rectangle工具类、进行碰撞检测
-        //如果两个矩形有交集
-        if (rect.intersects(tank.getRect())){
+        if (((bulMaxX >= tkMinX && bulMaxX <= tkMaxX) || (bulMinX >= tkMinX && bulMinX <= tkMaxX)) && ((bulMaxY >= tkMinY && bulMaxY <= tkMaxY) || (bulMinY >= tkMinY && bulMinY <= tkMaxY))) {
             tank.die();
             die();
             int explodeX = tank.getX() + (Tank.WID/2) - (Explode.WID/2);
             int explodeY = tank.getY() + (Tank.HEI/2) - (Explode.HEI/2);
-            this.gm.explodes.add(new Explode(explodeX, explodeY, this.group, gm));
+            this.gm.add(new Explode(explodeX, explodeY, this.group, gm));
+        }
+        */
+
+        //使用Rectangle工具类、进行碰撞检测
+        //如果两个矩形有交集
+        if (rect.intersects(tank.rect)){
+            tank.die();
+            die();
+            int explodeX = tank.getX() + (Tank.WID/2) - (Explode.WID/2);
+            int explodeY = tank.getY() + (Tank.HEI/2) - (Explode.HEI/2);
+            this.gm.add(new Explode(explodeX, explodeY, this.group, gm));
         }
     }
 

@@ -1,4 +1,4 @@
-package tank.fireStrategy;
+package fireStrategy;
 
 import tank.*;
 
@@ -22,9 +22,8 @@ public class TwoDirFireStrategy implements FireStrategy {
         int bX = tank.getX() + Tank.WID/2 - bw/2;
         int bY = tank.getY() + Tank.HEI/2 - bh/2;
 
-        List<Bullet> bullets = gm.getBullets();
-        bullets.add(new Bullet(bX, bY, tank.getDir(), tank.getGroup(), gm));
-        bullets.add(new Bullet(bX, bY, tank.getOffetCurrentRightDir(), tank.getGroup(), gm));
+        gm.add(new Bullet(bX, bY, tank.getDir(), tank.getGroup(), gm));
+        gm.add(new Bullet(bX, bY, tank.getOffetCurrentRightDir(), tank.getGroup(), gm));
 
     }
 }

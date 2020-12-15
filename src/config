@@ -1,2 +1,4 @@
 #tanks count at initialzation
 initTankCount=10
+#colliders
+colliders=cor.TankTankCollider,cor.BulletTankCollider

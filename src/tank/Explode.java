@@ -3,7 +3,7 @@ package tank;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Explode {
+public class Explode extends GameObject {
 
     private int x,y;
     public static int WID;
@@ -42,14 +42,6 @@ public class Explode {
         return x;
     }
 
-    public boolean isLiving() {
-        return living;
-    }
-
-    public void setLiving(boolean living) {
-        this.living = living;
-    }
-
     public void setX(int x) {
         this.x = x;
     }
@@ -67,8 +59,9 @@ public class Explode {
         BufferedImage[] images = this.group == Group.GOOD ? ResourceManger.goodExplodes : ResourceManger.badExplodes;
         g.drawImage(images[step++], x, y, null);
         if (step >= images.length){
+
             step =0;
-            living = false;
+            gm.objects.remove(this);
         }
     }
 }

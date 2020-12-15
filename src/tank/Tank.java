@@ -1,12 +1,13 @@
 package tank;
 
-import tank.fireStrategy.DefaultFireStrategy;
+import fireStrategy.DefaultFireStrategy;
+import fireStrategy.FireStrategy;
 
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends GameObject{
 
     private int x,y;
     public static int WID = ResourceManger.badTankU.getWidth();
@@ -18,8 +19,8 @@ public class Tank {
     private boolean living = true;
     private Random random = new Random();
     private Group group;
-    private Rectangle rect = new Rectangle();
-    private GameModel gm;
+    public Rectangle rect = new Rectangle();
+    public GameModel gm;
 
     public Tank(int x, int y, Dir dir, Group group, boolean moving, GameModel gm) {
         this.x = x;
@@ -27,7 +28,6 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.moving = moving;
-//        this.tf = tf;
         this.gm = gm;
 
         //init rect
@@ -44,14 +44,6 @@ public class Tank {
 
     public void setGroup(Group group) {
         this.group = group;
-    }
-
-    public Rectangle getRect() {
-        return rect;
-    }
-
-    public void setRect(Rectangle rect) {
-        this.rect = rect;
     }
 
     public int getX() {
@@ -73,7 +65,7 @@ public class Tank {
 
     public void paint(Graphics g){
 
-        if (!living) gm.tanks.remove(this);
+        if (!living) gm.remove(this);
 
         switch (dir){
             case RIGHT: g.drawImage(group == Group.GOOD ? ResourceManger.goodTankR : ResourceManger.badTankR, x, y, null);break;
