@@ -9,26 +9,35 @@ public class PropertyMgr {
     private PropertyMgr() {}
 
     static class PropertyMgrHandler {
-        private static Properties INSTANCE = new Properties();
 
+        private static Properties PROPERTIESINSTANCE = new Properties();
+        private static PropertyMgr INSTANCE = new PropertyMgr();
     }
 
-    public static Properties getInstance() {
+    public static PropertyMgr getInstance() {
 
         return PropertyMgrHandler.INSTANCE;
     }
 
     static {
+
         try {
-            PropertyMgrHandler.INSTANCE.load(PropertyMgr.class.getClassLoader().getResourceAsStream("config"));
+
+            PropertyMgrHandler.PROPERTIESINSTANCE.load(PropertyMgr.class.getClassLoader().getResourceAsStream("config"));
         } catch (IOException e) {
+
             e.printStackTrace();
         }
     }
 
-
     public Object get(String key){
-        if (PropertyMgrHandler.INSTANCE == null) return  null;
-        return PropertyMgrHandler.INSTANCE.get(key);
+
+        return PropertyMgrHandler.PROPERTIESINSTANCE.get(key);
+    }
+
+    public Integer getInteger(String key) {
+
+        String str = (String) PropertyMgrHandler.PROPERTIESINSTANCE.get(key);
+        return Integer.parseInt(str);
     }
 }

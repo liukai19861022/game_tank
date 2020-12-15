@@ -15,7 +15,7 @@ public class GameModel {
     public static GameModel INSTANCE = new GameModel();
     private ColliderChain cc = new ColliderChain();
 
-    Tank mytank = new Tank(200,200, Dir.DOWN, Group.GOOD, false, this);
+    Tank mytank = new Tank(360,520, Dir.UP, Group.GOOD, false, this);
 
     List<GameObject> objects = new ArrayList<GameObject>();
 
@@ -27,6 +27,23 @@ public class GameModel {
             int x = 50 + i*80;
             add(new Tank(x, 100, Dir.DOWN, Group.BAD, true, this));
         }
+
+        //init wall
+        int tierNum = 5;
+        int wallPosY = (TankFrame.GAME_HEIGHT - tierNum*Wall.HEIGHT) / 2;
+        int wallTotalNum = (TankFrame.GAME_WIDTH / Wall.WEIGHT)+1;
+
+        for (int i=0; i<tierNum; i++) {
+            for (int j=0; j<wallTotalNum; j++) {
+                if (i%2 == 0)
+                    add(new Wall(j*Wall.WEIGHT, wallPosY + i * Wall.HEIGHT, this));
+                else
+                    add(new Wall(j*Wall.WEIGHT-Wall.WEIGHT/2, wallPosY + i * Wall.HEIGHT, this));
+            }
+        }
+
+
+
     }
 
     public static GameModel getInstance() {

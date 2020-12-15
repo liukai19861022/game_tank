@@ -1,4 +1,7 @@
 #tanks count at initialzation
 initTankCount=10
 #colliders
-colliders=cor.TankTankCollider,cor.BulletTankCollider
+colliders=cor.TankTankCollider,cor.BulletTankCollider,cor.BulletWallCollider,cor.TankWallCollider
+#wall
+wallWeight=12
+wallHeight=6

@@ -10,6 +10,7 @@ import java.util.Random;
 public class Tank extends GameObject{
 
     private int x,y;
+    private int preX,preY;
     public static int WID = ResourceManger.badTankU.getWidth();
     public static int HEI = ResourceManger.badTankU.getHeight();
     private Dir dir;
@@ -23,6 +24,7 @@ public class Tank extends GameObject{
     public GameModel gm;
 
     public Tank(int x, int y, Dir dir, Group group, boolean moving, GameModel gm) {
+
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -78,6 +80,9 @@ public class Tank extends GameObject{
     }
 
     public void move(){
+
+        this.preX = x;
+        this.preY = y;
 
         if (!moving) return;
         switch (dir){
@@ -156,5 +161,10 @@ public class Tank extends GameObject{
 
     public void die(){
         this.living = false;
+    }
+
+    public void back() {
+        this.x = this.preX;
+        this.y = this.preY;
     }
 }

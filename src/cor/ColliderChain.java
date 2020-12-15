@@ -25,8 +25,6 @@ public class ColliderChain implements Collider{
                 e.printStackTrace();
             }
         }
-
-//        add(new TankTankCollider());
     }
 
     public ColliderChain add(Collider col) {
