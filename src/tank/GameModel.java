@@ -16,15 +16,17 @@ public class GameModel {
     public static GameModel INSTANCE = new GameModel();
     private ColliderChain cc = new ColliderChain();
 
-    Tank mytank = new Tank(360,520, ResourceManger.player1TankImgs, ResourceManger.player1BulImgs, ResourceManger.player1Explodes, Dir.UP, Group.GOOD, false, this);
+    Tank mytank;
 
     List<GameObject> objects = new ArrayList<GameObject>();
 
     private GameModel() {
 
+        add(new Tank(360,520, ResourceManger.player1TankImgs, ResourceManger.player1BulImgs, ResourceManger.player1Explodes, Dir.UP, Group.GOOD, false, this));
+        mytank = (Tank) objects.get(0);
+
 
         int initTankCount = Integer.parseInt((String) PropertyMgr.getInstance().get("initTankCount"));
-
 
         List<List<BufferedImage[]>> computerTankImages = ResourceManger.computerTankImages;
         int computerTankSize = computerTankImages.size();
@@ -74,8 +76,6 @@ public class GameModel {
 //        g.drawString("爆炸数量 ： "+ explodes.size(),10,100);
 
         g.setColor(c);
-
-        mytank.paint(g);
 
         //使用计数循环解决 java.util.ConcurrentModificationException 此问题
         for (int i=0; i<objects.size(); i++){
