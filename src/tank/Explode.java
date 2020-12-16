@@ -6,36 +6,24 @@ import java.awt.image.BufferedImage;
 public class Explode extends GameObject {
 
     private int x,y;
-    public static int WID;
-    public static int HEI;
+    public int width;
+    public int height;
     private GameModel gm;
     private int step = 0;
     private boolean living = true;
-    private Group group;
+    public BufferedImage[] images;
 
-    public Explode(int x, int y, Group group, GameModel gm) {
+    public Explode(int x, int y, BufferedImage[] images, GameModel gm) {
+
         this.x = x;
         this.y = y;
-        this.group = group;
         this.gm = gm;
+        this.images = images;
 
-        if (this.group == Group.GOOD) {
-            setHEI(ResourceManger.goodExplodes[0].getHeight());
-            setWID(ResourceManger.goodExplodes[0].getWidth());
-        }else if (this.group == Group.BAD) {
-            setHEI(ResourceManger.badExplodes[0].getHeight());
-            setWID(ResourceManger.badExplodes[0].getWidth());
-        }
+        height = images[0].getHeight();
+        width = images[0].getWidth();
         //播放声音、卡顿
         //new Audio("audio/explode.wav").play();
-    }
-
-    public void setHEI(int hei) {
-        HEI = hei;
-    }
-
-    public void setWID(int wid) {
-        WID = wid;
     }
 
     public int getX() {
@@ -56,7 +44,6 @@ public class Explode extends GameObject {
 
     public void paint(Graphics g){
 
-        BufferedImage[] images = this.group == Group.GOOD ? ResourceManger.goodExplodes : ResourceManger.badExplodes;
         g.drawImage(images[step++], x, y, null);
         if (step >= images.length){
 

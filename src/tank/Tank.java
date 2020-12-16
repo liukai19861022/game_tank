@@ -3,7 +3,9 @@ package tank;
 import fireStrategy.DefaultFireStrategy;
 import fireStrategy.FireStrategy;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -11,8 +13,9 @@ public class Tank extends GameObject{
 
     private int x,y;
     private int preX,preY;
-    public static int WID = ResourceManger.badTankU.getWidth();
-    public static int HEI = ResourceManger.badTankU.getHeight();
+    public int width;
+    public int height;
+    public BufferedImage[] tankBufImages, bulBufImages, expImages;
     private Dir dir;
     private static final int SPEED = 4;
     private boolean moving = false;
@@ -23,7 +26,7 @@ public class Tank extends GameObject{
     public Rectangle rect = new Rectangle();
     public GameModel gm;
 
-    public Tank(int x, int y, Dir dir, Group group, boolean moving, GameModel gm) {
+    public Tank(int x, int y, BufferedImage[] tankImages, BufferedImage[] bulImages, BufferedImage[] expImages, Dir dir, Group group, boolean moving, GameModel gm) {
 
         this.x = x;
         this.y = y;
@@ -31,12 +34,19 @@ public class Tank extends GameObject{
         this.group = group;
         this.moving = moving;
         this.gm = gm;
+        tankBufImages = tankImages;
+        bulBufImages = bulImages;
+        this.expImages = expImages;
+
+        width = tankImages[0].getWidth();
+        height = tankImages[0].getHeight();
+
 
         //init rect
         rect.x = x;
         rect.y = y;
-        rect.width = WID;
-        rect.height = HEI;
+        rect.width = width;
+        rect.height = height;
 
     }
 
@@ -70,10 +80,10 @@ public class Tank extends GameObject{
         if (!living) gm.remove(this);
 
         switch (dir){
-            case RIGHT: g.drawImage(group == Group.GOOD ? ResourceManger.goodTankR : ResourceManger.badTankR, x, y, null);break;
-            case LEFT: g.drawImage(group == Group.GOOD ? ResourceManger.goodTankL : ResourceManger.badTankL, x, y, null);break;
-            case DOWN:g.drawImage(group == Group.GOOD ? ResourceManger.goodTankD : ResourceManger.badTankD, x, y, null);break;
-            case UP:g.drawImage(group == Group.GOOD ? ResourceManger.goodTankU : ResourceManger.badTankU, x, y, null);break;
+            case UP:g.drawImage(tankBufImages[0], x, y, null);break;
+            case RIGHT: g.drawImage(tankBufImages[1], x, y, null);break;
+            case DOWN:g.drawImage(tankBufImages[2], x, y, null);break;
+            case LEFT: g.drawImage(tankBufImages[3], x, y, null);break;
         }
 
         move();
@@ -113,9 +123,9 @@ public class Tank extends GameObject{
 
         int border = 2;
         int upY = 30 + border; //含菜单条
-        int bottomY = TankFrame.GAME_HEIGHT - Tank.HEI - border;
+        int bottomY = TankFrame.GAME_HEIGHT - height - border;
         int leftX = 0 +border;
-        int rightX = TankFrame.GAME_WIDTH - Tank.WID - border;
+        int rightX = TankFrame.GAME_WIDTH - height - border;
         if (x< leftX) x = leftX;
         if (x > rightX) x = rightX;
         if (y < upY) y = upY;

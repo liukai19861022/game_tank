@@ -1,7 +1,8 @@
 #tanks count at initialzation
 initTankCount=10
+computerTankSkins=abstractfactory.fc.ComRedSmallTankSkinFactory,abstractfactory.fc.ComRedSuperBigTankSkinFactory,abstractfactory.fc.ComGraySmallTankSkinFactory,abstractfactory.fc.ComGraySuperBigTankSkinFactory
 #colliders
-colliders=cor.TankTankCollider,cor.BulletTankCollider,cor.BulletWallCollider,cor.TankWallCollider
+colliders=cor.TankTankCollider,cor.BulletTankCollider,cor.BulletWallCollider,cor.TankWallCollider,cor.BulletBulletCollider
 #wall
 wallWeight=12
 wallHeight=6

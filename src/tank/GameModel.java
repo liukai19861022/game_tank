@@ -6,6 +6,7 @@ import cor.ColliderChain;
 import cor.TankTankCollider;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,17 +16,22 @@ public class GameModel {
     public static GameModel INSTANCE = new GameModel();
     private ColliderChain cc = new ColliderChain();
 
-    Tank mytank = new Tank(360,520, Dir.UP, Group.GOOD, false, this);
+    Tank mytank = new Tank(360,520, ResourceManger.player1TankImgs, ResourceManger.player1BulImgs, ResourceManger.player1Explodes, Dir.UP, Group.GOOD, false, this);
 
     List<GameObject> objects = new ArrayList<GameObject>();
 
     private GameModel() {
 
+
         int initTankCount = Integer.parseInt((String) PropertyMgr.getInstance().get("initTankCount"));
+
+
+        List<List<BufferedImage[]>> computerTankImages = ResourceManger.computerTankImages;
+        int computerTankSize = computerTankImages.size();
         for (int i=0; i<initTankCount; i++){
 
             int x = 50 + i*80;
-            add(new Tank(x, 100, Dir.DOWN, Group.BAD, true, this));
+            add(new Tank(x, 100, computerTankImages.get(i%computerTankSize).get(0), computerTankImages.get(i%computerTankSize).get(1), computerTankImages.get(i%computerTankSize).get(2), Dir.DOWN, Group.BAD, true, this));
         }
 
         //init wall

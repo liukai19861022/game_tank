@@ -15,7 +15,7 @@ public class BulletTankCollider implements Collider{
             Bullet bullet = (Bullet) o1;
             Tank tank = (Tank) o2;
 
-            if (bullet.group == tank.getGroup()) return false;
+            if (bullet.group == tank.getGroup()) return true;
 
             //使用Rectangle工具类、进行碰撞检测
             //如果两个矩形有交集
@@ -23,14 +23,14 @@ public class BulletTankCollider implements Collider{
 
                 tank.die();
                 bullet.die();
-                int explodeX = tank.getX() + (Tank.WID/2) - (Explode.WID/2);
-                int explodeY = tank.getY() + (Tank.HEI/2) - (Explode.HEI/2);
-                bullet.gm.add(new Explode(explodeX, explodeY, bullet.group, bullet.gm));
+                int explodeX = tank.getX() + (tank.width/2) - (tank.expImages[0].getWidth()/2);
+                int explodeY = tank.getY() + (tank.height/2) - (tank.expImages[0].getHeight()/2);
+                bullet.gm.add(new Explode(explodeX, explodeY, tank.expImages, bullet.gm));
 
                 return false;
             }
         }else if (o1 instanceof Tank && o2 instanceof Bullet) {
-            collide(o2, o1);
+            return collide(o2, o1);
         }
 
         return true;

@@ -10,46 +10,39 @@ import java.util.List;
 public class Bullet extends GameObject{
 
     private int x,y;
-    public static int WID;
-    public static int HEI;
+    public int width;
+    public int height;
     private static final int SPEED = 10;
     private Dir dir;
     private boolean living = true;
     public GameModel gm;
     public Group group;
     public Rectangle rect = new Rectangle();
+    public BufferedImage[] images;
+    public BufferedImage[] expImages;
 
-    public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Bullet(int x, int y, BufferedImage[] images, BufferedImage[] expImages, Dir dir, Group group, GameModel gm) {
 
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
         this.gm = gm;
+        this.images = images;
+        this.expImages = expImages;
 
-        if (this.group == Group.GOOD) {
-            setHEI(ResourceManger.goodBulletD.getHeight());
-            setWID(ResourceManger.goodBulletD.getWidth());
-        }else if (this.group == Group.BAD) {
-            setHEI(ResourceManger.badBulletD.getHeight());
-            setWID(ResourceManger.badBulletD.getWidth());
-        }
-
+        height = images[0].getHeight();
+        width = images[0].getWidth();
 
         //init rect
         rect.x = x;
         rect.y = y;
-        rect.width = WID;
-        rect.height = HEI;
+
+        //加大子弹面积、增加4倍碰撞机会
+        rect.width = width*4;
+        rect.height = height*4;
     }
 
-    private void setWID(int wid) {
-        WID = wid;
-    }
-
-    private void setHEI(int hei) {
-        HEI = hei;
-    }
 
     public int getX() {
         return x;
@@ -71,24 +64,11 @@ public class Bullet extends GameObject{
 
         if (living == false) this.gm.remove(this);
 
-        BufferedImage img;
         switch (dir){
-            case UP:
-                img = this.group == Group.GOOD ? ResourceManger.goodBulletU : ResourceManger.badBulletU;
-                g.drawImage(img, x, y, null);
-                break;
-            case DOWN:
-                img = this.group == Group.GOOD ? ResourceManger.goodBulletD : ResourceManger.badBulletD;
-                g.drawImage(img, x, y, null);
-                break;
-            case LEFT:
-                img = this.group == Group.GOOD ? ResourceManger.goodBulletL : ResourceManger.badBulletL;
-                g.drawImage(img, x, y, null);
-                break;
-            case RIGHT:
-                img = this.group == Group.GOOD ? ResourceManger.goodBulletR : ResourceManger.badBulletR;
-                g.drawImage(img, x, y, null);
-                break;
+            case UP: g.drawImage(images[0], x, y, null);break;
+            case RIGHT: g.drawImage(images[1], x, y, null);break;
+            case DOWN: g.drawImage(images[2], x, y, null);break;
+            case LEFT: g.drawImage(images[3], x, y, null);break;
         }
 
         move();
@@ -96,6 +76,7 @@ public class Bullet extends GameObject{
 
     /**
      * 坦克碰撞检测
+     * 废弃
      * @param tank
      * @return
      */
@@ -136,16 +117,7 @@ public class Bullet extends GameObject{
             this.gm.add(new Explode(explodeX, explodeY, this.group, gm));
         }
         */
-
-        //使用Rectangle工具类、进行碰撞检测
-        //如果两个矩形有交集
-        if (rect.intersects(tank.rect)){
-            tank.die();
-            die();
-            int explodeX = tank.getX() + (Tank.WID/2) - (Explode.WID/2);
-            int explodeY = tank.getY() + (Tank.HEI/2) - (Explode.HEI/2);
-            this.gm.add(new Explode(explodeX, explodeY, this.group, gm));
-        }
+//        ...
     }
 
 
