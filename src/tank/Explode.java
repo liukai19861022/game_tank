@@ -8,16 +8,14 @@ public class Explode extends GameObject {
     private int x,y;
     public int width;
     public int height;
-    private GameModel gm;
     private int step = 0;
     private boolean living = true;
     public BufferedImage[] images;
 
-    public Explode(int x, int y, BufferedImage[] images, GameModel gm) {
+    public Explode(int x, int y, BufferedImage[] images) {
 
         this.x = x;
         this.y = y;
-        this.gm = gm;
         this.images = images;
 
         height = images[0].getHeight();
@@ -48,7 +46,7 @@ public class Explode extends GameObject {
         if (step >= images.length){
 
             step =0;
-            gm.objects.remove(this);
+            GameModel.getInstance().objects.remove(this);
         }
     }
 }

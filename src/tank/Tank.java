@@ -3,7 +3,6 @@ package tank;
 import fireStrategy.DefaultFireStrategy;
 import fireStrategy.FireStrategy;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
@@ -24,16 +23,14 @@ public class Tank extends GameObject{
     private Random random = new Random();
     private Group group;
     public Rectangle rect = new Rectangle();
-    public GameModel gm;
 
-    public Tank(int x, int y, BufferedImage[] tankImages, BufferedImage[] bulImages, BufferedImage[] expImages, Dir dir, Group group, boolean moving, GameModel gm) {
+    public Tank(int x, int y, BufferedImage[] tankImages, BufferedImage[] bulImages, BufferedImage[] expImages, Dir dir, Group group, boolean moving) {
 
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
         this.moving = moving;
-        this.gm = gm;
         tankBufImages = tankImages;
         bulBufImages = bulImages;
         this.expImages = expImages;
@@ -77,7 +74,7 @@ public class Tank extends GameObject{
 
     public void paint(Graphics g){
 
-        if (!living) gm.remove(this);
+        if (!living) GameModel.getInstance().remove(this);
 
         switch (dir){
             case UP:g.drawImage(tankBufImages[0], x, y, null);break;
@@ -166,7 +163,7 @@ public class Tank extends GameObject{
      */
     public void fire(FireStrategy fireStrategy){
 
-        fireStrategy.fire(this.gm, this);
+        fireStrategy.fire(this);
     }
 
     public void die(){

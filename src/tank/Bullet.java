@@ -15,19 +15,17 @@ public class Bullet extends GameObject{
     private static final int SPEED = 10;
     private Dir dir;
     private boolean living = true;
-    public GameModel gm;
     public Group group;
     public Rectangle rect = new Rectangle();
     public BufferedImage[] images;
     public BufferedImage[] expImages;
 
-    public Bullet(int x, int y, BufferedImage[] images, BufferedImage[] expImages, Dir dir, Group group, GameModel gm) {
+    public Bullet(int x, int y, BufferedImage[] images, BufferedImage[] expImages, Dir dir, Group group) {
 
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
         this.images = images;
         this.expImages = expImages;
 
@@ -62,7 +60,7 @@ public class Bullet extends GameObject{
 
     public void paint(Graphics g){
 
-        if (living == false) this.gm.remove(this);
+        if (living == false) GameModel.getInstance().remove(this);
 
         switch (dir){
             case UP: g.drawImage(images[0], x, y, null);break;

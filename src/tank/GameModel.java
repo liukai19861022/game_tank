@@ -13,16 +13,21 @@ import java.util.List;
 
 public class GameModel {
 
-    public static GameModel INSTANCE = new GameModel();
+
     private ColliderChain cc = new ColliderChain();
 
     Tank mytank;
+
+    static class GameModelHandler {
+        private  static GameModel INSTANCE = new GameModel();
+
+    }
 
     List<GameObject> objects = new ArrayList<GameObject>();
 
     private GameModel() {
 
-        add(new Tank(360,520, ResourceManger.player1TankImgs, ResourceManger.player1BulImgs, ResourceManger.player1Explodes, Dir.UP, Group.GOOD, false, this));
+        add(new Tank(360,520, ResourceManger.player1TankImgs, ResourceManger.player1BulImgs, ResourceManger.player1Explodes, Dir.UP, Group.GOOD, false));
         mytank = (Tank) objects.get(0);
 
 
@@ -33,7 +38,7 @@ public class GameModel {
         for (int i=0; i<initTankCount; i++){
 
             int x = 50 + i*80;
-            add(new Tank(x, 100, computerTankImages.get(i%computerTankSize).get(0), computerTankImages.get(i%computerTankSize).get(1), computerTankImages.get(i%computerTankSize).get(2), Dir.DOWN, Group.BAD, true, this));
+            add(new Tank(x, 100, computerTankImages.get(i%computerTankSize).get(0), computerTankImages.get(i%computerTankSize).get(1), computerTankImages.get(i%computerTankSize).get(2), Dir.DOWN, Group.BAD, true));
         }
 
         //init wall
@@ -55,7 +60,7 @@ public class GameModel {
     }
 
     public static GameModel getInstance() {
-        return INSTANCE;
+        return GameModelHandler.INSTANCE;
     }
 
     public void add(GameObject go) {

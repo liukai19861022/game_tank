@@ -1,9 +1,6 @@
 package cor;
 
-import tank.Bullet;
-import tank.Explode;
-import tank.GameObject;
-import tank.Tank;
+import tank.*;
 
 public class BulletBulletCollider implements Collider{
 
@@ -28,8 +25,8 @@ public class BulletBulletCollider implements Collider{
                 int explodet1Y = b1.getY() + (b1.height/2) - (b1.expImages[0].getHeight()/2);
                 int explodet2X = b2.getX() + (b2.width/2) - (b2.expImages[0].getWidth()/2);
                 int explodet2Y = b2.getY() + (b2.height/2) - (b2.expImages[0].getHeight()/2);
-                b1.gm.add(new Explode(explodet1X, explodet1Y, b1.expImages, b1.gm));
-                b2.gm.add(new Explode(explodet2X, explodet2Y, b2.expImages, b2.gm));
+                GameModel.getInstance().add(new Explode(explodet1X, explodet1Y, b1.expImages));
+                GameModel.getInstance().add(new Explode(explodet2X, explodet2Y, b2.expImages));
 
                 System.out.println("子弹撞上了");
                 return false;
