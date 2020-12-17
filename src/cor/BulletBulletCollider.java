@@ -28,7 +28,7 @@ public class BulletBulletCollider implements Collider{
                 GameModel.getInstance().add(new Explode(explodet1X, explodet1Y, b1.expImages));
                 GameModel.getInstance().add(new Explode(explodet2X, explodet2Y, b2.expImages));
 
-                System.out.println("子弹撞上了");
+//                System.out.println("子弹撞上了");
                 return false;
             }
         }else if (o1 instanceof Tank && o2 instanceof Bullet) {

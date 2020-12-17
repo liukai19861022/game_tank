@@ -44,19 +44,16 @@ public class GameModel {
         //init wall
         int tierNum = 5;
         int wallPosY = (TankFrame.GAME_HEIGHT - tierNum*Wall.HEIGHT) / 2;
-        int wallTotalNum = (TankFrame.GAME_WIDTH / Wall.WEIGHT)+1;
+        int wallTotalNum = (TankFrame.GAME_WIDTH / Wall.WIDTH)+1;
 
         for (int i=0; i<tierNum; i++) {
             for (int j=0; j<wallTotalNum; j++) {
                 if (i%2 == 0)
-                    add(new Wall(j*Wall.WEIGHT, wallPosY + i * Wall.HEIGHT, this));
+                    add(new Wall(j*Wall.WIDTH, wallPosY + i * Wall.HEIGHT, this));
                 else
-                    add(new Wall(j*Wall.WEIGHT-Wall.WEIGHT/2, wallPosY + i * Wall.HEIGHT, this));
+                    add(new Wall(j*Wall.WIDTH-Wall.WIDTH/2, wallPosY + i * Wall.HEIGHT, this));
             }
         }
-
-
-
     }
 
     public static GameModel getInstance() {

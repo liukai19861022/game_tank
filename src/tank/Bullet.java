@@ -9,7 +9,6 @@ import java.util.List;
 
 public class Bullet extends GameObject{
 
-    private int x,y;
     public int width;
     public int height;
     private static final int SPEED = 10;
@@ -70,6 +69,16 @@ public class Bullet extends GameObject{
         }
 
         move();
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
     }
 
     /**

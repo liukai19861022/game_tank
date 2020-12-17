@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 
 public class Explode extends GameObject {
 
-    private int x,y;
     public int width;
     public int height;
     private int step = 0;
@@ -22,6 +21,16 @@ public class Explode extends GameObject {
         width = images[0].getWidth();
         //播放声音、卡顿
         //new Audio("audio/explode.wav").play();
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
     }
 
     public int getX() {

@@ -3,6 +3,7 @@ package tank;
 import abstractfactory.SkinAbstractFactory;
 import abstractfactory.fc.ComRedSmallTankSkinFactory;
 import abstractfactory.fc.Player1TankSkinFactory;
+import abstractfactory.fc.SmallYellowTankSkin;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -16,12 +17,11 @@ public class ResourceManger {
     //主战坦克上下左右
     public static BufferedImage[] player1TankImgs = new BufferedImage[4];
     public static BufferedImage[] player1BulImgs = new BufferedImage[4];
-    public static BufferedImage[] player1Explodes, com1Explodes;
-
-    public static BufferedImage[] com1TankImgs = new BufferedImage[4];
-    public static BufferedImage[] com11BulImgs = new BufferedImage[4];
+    public static BufferedImage[] player1Explodes;
     public static List<List<BufferedImage[]>> computerTankImages = new ArrayList<List<BufferedImage[]>>();
 
+    //Docorators
+    public static BufferedImage[] ringImages = new BufferedImage[2];
 
     //ResourceManger.CLASS加载到内存时，静态语句块将会被执行
     static {
@@ -44,6 +44,9 @@ public class ResourceManger {
                 player1Explodes[i] = ImageIO.read(explodes[i]);
             }
 
+            //ring
+            ringImages[0] = ImageIO.read(ResourceManger.class.getClassLoader().getResourceAsStream("images/fc/ring0.gif"));
+            ringImages[1] = ImageIO.read(ResourceManger.class.getClassLoader().getResourceAsStream("images/fc/ring1.gif"));
 
             String computerTankSkinsString = (String) PropertyMgr.getInstance().get("computerTankSkins");
             String[] computerTankSkinsStringArray = computerTankSkinsString.split(",");
@@ -75,24 +78,6 @@ public class ResourceManger {
 
                 computerTankImages.add(bufferedImages);
             }
-
-            SkinAbstractFactory instance = ComRedSmallTankSkinFactory.getInstance();
-//            com1TankImgs[0] = ImageIO.read(instance.createTank().getSkin());
-//            com1TankImgs[1] = ImageUtil.rotateImage(com1TankImgs[0], 90);
-//            com1TankImgs[2] = ImageUtil.rotateImage(com1TankImgs[0], 180);
-//            com1TankImgs[3] = ImageUtil.rotateImage(com1TankImgs[0], -90);
-//
-//            com11BulImgs[0] = ImageIO.read(instance.createBullet().getSkin());
-//            com11BulImgs[1] = ImageUtil.rotateImage(com11BulImgs[0], 90);
-//            com11BulImgs[2] = ImageUtil.rotateImage(com11BulImgs[0], 180);
-//            com11BulImgs[3] = ImageUtil.rotateImage(com11BulImgs[0], -90);
-//
-//            InputStream[] explodes1 = instance.createExplodes().getSkins();
-//            com1Explodes = new BufferedImage[explodes1.length];
-//            for (int i=0; i<explodes1.length; i++) {
-//                com1Explodes[i] = ImageIO.read(explodes1[i]);
-//            }
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {

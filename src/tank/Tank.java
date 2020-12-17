@@ -10,7 +10,6 @@ import java.util.Random;
 
 public class Tank extends GameObject{
 
-    private int x,y;
     private int preX,preY;
     public int width;
     public int height;
@@ -38,13 +37,22 @@ public class Tank extends GameObject{
         width = tankImages[0].getWidth();
         height = tankImages[0].getHeight();
 
-
         //init rect
         rect.x = x;
         rect.y = y;
         rect.width = width;
         rect.height = height;
 
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
     }
 
     public Group getGroup() {

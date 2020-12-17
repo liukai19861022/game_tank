@@ -5,12 +5,21 @@ import java.awt.*;
 
 public class Wall extends GameObject{
 
-    private int x,y;
-    public static int WEIGHT = PropertyMgr.getInstance().getInteger("wallWeight");
+    public static int WIDTH = PropertyMgr.getInstance().getInteger("wallWidth");
     public static int HEIGHT = PropertyMgr.getInstance().getInteger("wallHeight");
 
     public Rectangle rect = new Rectangle();
     public GameModel gm;
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
+    }
 
     public Wall(int x, int y, GameModel gm) {
 
@@ -21,7 +30,7 @@ public class Wall extends GameObject{
         //init rect
         rect.x = x;
         rect.y = y;
-        rect.width = WEIGHT;
+        rect.width = WIDTH;
         rect.height = HEIGHT;
 
     }
@@ -30,9 +39,9 @@ public class Wall extends GameObject{
 
         Color c = g.getColor();
         g.setColor(Color.orange);
-        g.fillRect(x, y, WEIGHT, HEIGHT);
+        g.fillRect(x, y, WIDTH, HEIGHT);
         g.setColor(Color.WHITE);
-        g.drawRect(x, y, WEIGHT, HEIGHT);
+        g.drawRect(x, y, WIDTH, HEIGHT);
         g.setColor(c);
     }
 

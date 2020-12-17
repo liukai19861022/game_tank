@@ -4,5 +4,5 @@ computerTankSkins=abstractfactory.fc.ComRedSmallTankSkinFactory,abstractfactory.
 #colliders
 colliders=cor.TankTankCollider,cor.BulletTankCollider,cor.BulletWallCollider,cor.TankWallCollider,cor.BulletBulletCollider
 #wall
-wallWeight=12
+wallWidth=12
 wallHeight=6

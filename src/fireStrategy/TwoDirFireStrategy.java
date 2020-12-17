@@ -1,5 +1,9 @@
 package fireStrategy;
 
+import decorator.GODecorator;
+import decorator.LineDecorator;
+import decorator.ProtectiveCoverDecorator;
+import decorator.RectDecorator;
 import tank.*;
 
 import java.util.List;
@@ -23,7 +27,12 @@ public class TwoDirFireStrategy implements FireStrategy {
         int bX = tank.getX() + tank.width/2 - bw/2;
         int bY = tank.getY() + tank.height/2 - bh/2;
 
-        GameModel.getInstance().add(new Bullet(bX, bY, tank.bulBufImages, tank.expImages, tank.getDir(), tank.getGroup()));
+        GODecorator goDecorator = new ProtectiveCoverDecorator(
+            new RectDecorator(
+                new Bullet(bX, bY, tank.bulBufImages, tank.expImages, tank.getDir(), tank.getGroup())
+            )
+        );
+        GameModel.getInstance().add(goDecorator);
         GameModel.getInstance().add(new Bullet(bX, bY, tank.bulBufImages, tank.expImages, tank.getOffetCurrentRightDir(), tank.getGroup()));
     }
 }
