@@ -114,7 +114,8 @@ public class TankFrame extends Frame {
                     bR = true;
                     break;
                 case 157 : //mac ⌘、发射子弹
-                    gm.getMaintank().fire(TwoDirFireStrategy.getInstance());
+//                    gm.getMaintank().fire(TwoDirFireStrategy.getInstance());
+                    gm.getMaintank().handleFireKey();
                 default:
                     break;
             }

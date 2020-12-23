@@ -2,10 +2,14 @@ package tank;
 
 import fireStrategy.DefaultFireStrategy;
 import fireStrategy.FireStrategy;
+import observer.TankFireEvent;
+import observer.TankFireHandle;
+import observer.TankFireObserver;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Tank extends GameObject{
@@ -181,5 +185,14 @@ public class Tank extends GameObject{
     public void back() {
         this.x = this.preX;
         this.y = this.preY;
+    }
+
+    private List<TankFireObserver> fireObservers = Arrays.asList(new TankFireHandle());
+    public void handleFireKey() {
+        TankFireEvent e = new TankFireEvent(this);
+        for (TankFireObserver o : fireObservers) {
+            o.actionOnFire(e);
+        }
+
     }
 }
